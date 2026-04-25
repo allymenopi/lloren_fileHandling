@@ -1,0 +1,34 @@
+def main():
+    try:
+        username = input("Enter your username: ").strip()
+        if username == "":
+            raise ValueError("Username cannot be empty.")
+        
+        age = int(input("Enter your age: ").strip())
+        if age < 0:
+            raise ValueError("Age cannot be negative.")
+        
+        with open("user_data.txt", "a") as file:
+            file.write(f"Username: {username}\n")
+            file.write(f"Age: {age}\n")
+
+            print("User data has been saved to user_data.txt.")
+
+    except ValueError:
+        print("Invalid input. Please enter valid data.")
+
+    except IOError:
+        print("An error occurred while handling the file.")
+
+    finally:
+        try:
+            print("\n Saved user data:")
+            with open("user_data.txt", "r") as file:
+                content = file.read()
+                print(content)
+        except FileNotFoundError:
+            print("No user data found.")
+
+        print("\nSystem Complete!")
+
+main()
